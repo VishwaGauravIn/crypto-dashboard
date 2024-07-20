@@ -23,7 +23,7 @@ export async function fetchGlobalMarketCap() {
 export async function fetchCoins(page = 1) {
   try {
     const response = await axios.get(
-      "https://api.coingecko.com/api/v3/coins/markets?sparkline=true&price_change_percentage=24h",
+      "https://api.coingecko.com/api/v3/coins/markets?price_change_percentage=24h",
       {
         headers: {
           Authorization: `Bearer ${API_KEY}`,
@@ -45,7 +45,7 @@ export async function fetchCoins(page = 1) {
 export async function fetchCoinDetails(id: string) {
   try {
     const response = await axios.get(
-      `https://api.coingecko.com/api/v3/coins/${id}`,
+      `https://api.coingecko.com/api/v3/coins/${id}?localization=false&tickers=false&market_data=true`,
       {
         headers: {
           Authorization: `Bearer ${API_KEY}`,
@@ -69,6 +69,28 @@ export async function fetchTrendingCoins() {
       }
     );
     return response.data.coins;
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+}
+
+export async function fetchCoinChart(id: string, days: number) {
+  try {
+    const response = await axios.get(
+      `https://api.coingecko.com/api/v3/coins/${id}/market_chart`,
+      {
+        headers: {
+          Authorization: `Bearer ${API_KEY}`,
+        },
+        params: {
+          vs_currency: "usd",
+          days: days,
+          precision: 2,
+          interval: days > 29 ? "daily" : "",
+        },
+      }
+    );
+    return response.data;
   } catch (error) {
     throw new Error((error as Error).message);
   }
