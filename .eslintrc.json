@@ -7,7 +7,7 @@
     "react/jsx-no-target-blank": "off",
     "max-lines": [
       "error",
-      { "max": 200, "skipBlankLines": true, "skipComments": true }
+      { "max": 500, "skipBlankLines": true, "skipComments": true }
     ]
   }
 }
