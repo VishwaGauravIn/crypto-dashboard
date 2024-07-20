@@ -1,5 +1,5 @@
-import create from "zustand";
-import axios from "axios";
+import { create } from "zustand";
+import * as serverActions from "./serverActions";
 
 interface GlobalMarketCap {
   market_cap: number;
@@ -37,8 +37,6 @@ interface StoreState {
   fetchCoinDetails: (id: string) => Promise<void>;
 }
 
-const API_KEY = process.env.NEXT_PUBLIC_COINGECKO_API_KEY;
-
 const useStore = create<StoreState>((set) => ({
   globalMarketCap: [],
   coins: [],
@@ -50,15 +48,8 @@ const useStore = create<StoreState>((set) => ({
   fetchGlobalMarketCap: async () => {
     set({ loading: true });
     try {
-      const response = await axios.get(
-        "https://api.coingecko.com/api/v3/global",
-        {
-          headers: {
-            Authorization: `Bearer ${API_KEY}`,
-          },
-        }
-      );
-      set({ globalMarketCap: response.data, loading: false });
+      const data = await serverActions.fetchGlobalMarketCap();
+      set({ globalMarketCap: data, loading: false });
     } catch (error) {
       set({ error: (error as Error).message, loading: false });
     }
@@ -67,22 +58,9 @@ const useStore = create<StoreState>((set) => ({
   fetchCoins: async (page = 1) => {
     set({ loading: true });
     try {
-      const response = await axios.get(
-        "https://api.coingecko.com/api/v3/coins/markets",
-        {
-          headers: {
-            Authorization: `Bearer ${API_KEY}`,
-          },
-          params: {
-            vs_currency: "inr",
-            order: "market_cap_desc",
-            per_page: 100,
-            page,
-          },
-        }
-      );
+      const data = await serverActions.fetchCoins(page);
       set((state) => ({
-        coins: [...state.coins, ...response.data],
+        coins: [...state.coins, ...data],
         loading: false,
       }));
     } catch (error) {
@@ -93,15 +71,8 @@ const useStore = create<StoreState>((set) => ({
   fetchCoinDetails: async (id) => {
     set({ loading: true });
     try {
-      const response = await axios.get(
-        `https://api.coingecko.com/api/v3/coins/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${API_KEY}`,
-          },
-        }
-      );
-      set({ coinDetails: response.data, loading: false });
+      const data = await serverActions.fetchCoinDetails(id);
+      set({ coinDetails: data, loading: false });
     } catch (error) {
       set({ error: (error as Error).message, loading: false });
     }
@@ -110,15 +81,8 @@ const useStore = create<StoreState>((set) => ({
   fetchTrendingCoins: async () => {
     set({ loading: true });
     try {
-      const response = await axios.get(
-        "https://api.coingecko.com/api/v3/search/trending",
-        {
-          headers: {
-            Authorization: `Bearer ${API_KEY}`,
-          },
-        }
-      );
-      set({ trendingCoins: response.data.coins, loading: false });
+      const data = await serverActions.fetchTrendingCoins();
+      set({ trendingCoins: data, loading: false });
     } catch (error) {
       set({ error: (error as Error).message, loading: false });
     }
