@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, Package2, Search } from "lucide-react";
+import { Menu, Package2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import ToggleTheme from "./ToggleTheme";
 import Account from "./Account";
@@ -26,7 +25,7 @@ export default function Header() {
   const searchData = demoCoins;
   const trendingCoins = demoTrendingCoins;
   return (
-    <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+    <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-30">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
         <Link
           href="#"
@@ -66,7 +65,7 @@ export default function Header() {
           <div className="relative w-96">
             <Command className="rounded-lg border shadow-sm group relative">
               <CommandInput
-                placeholder="Type a command or search..."
+                placeholder="Search coins"
                 className="z-20 relative"
               />
               <CommandList className="h-0 group-focus-within:h-48 max-h-48 transition-all ease-in-out absolute top-8 group-focus-within:pt-4 shadow-md -z-10 rounded-b bg-white w-full">
