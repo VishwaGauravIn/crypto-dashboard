@@ -11,9 +11,20 @@ import Account from "./Account";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import React from "react";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import { demoCoins, demoTrendingCoins } from "@/store/demoData";
 
 export default function Header() {
   const pathname = usePathname();
+  const searchData = demoCoins;
+  const trendingCoins = demoTrendingCoins;
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
@@ -52,13 +63,31 @@ export default function Header() {
       </Sheet>
       <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
         <form className="ml-auto flex-1 sm:flex-initial">
-          <div className="relative">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search products..."
-              className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
-            />
+          <div className="relative w-96">
+            <Command className="rounded-lg border shadow-sm group relative">
+              <CommandInput
+                placeholder="Type a command or search..."
+                className="z-20 relative"
+              />
+              <CommandList className="h-0 group-focus-within:h-48 max-h-48 transition-all ease-in-out absolute top-8 group-focus-within:pt-4 shadow-md -z-10 rounded-b bg-white w-full">
+                <CommandEmpty>No results found.</CommandEmpty>
+                <CommandGroup heading="Top Trending ️‍🔥">
+                 {/* Top 5 trending coins */}
+                  {trendingCoins.slice(0, 5).map((coin) => (
+                    <CommandItem key={coin.item.id}>
+                      <span>{coin.item.name} <span className="text-muted-foreground lowercase">({coin.item.symbol})</span></span>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+                <CommandGroup heading="All Coins">
+                  {searchData.map((coin) => (
+                    <CommandItem key={coin.id}>
+                      <span>{coin.name} <span className="text-muted-foreground">({coin.symbol})</span></span>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </CommandList>
+            </Command>
           </div>
         </form>
         <ToggleTheme />
@@ -94,7 +123,7 @@ const HeaderLink = ({
       href={href}
       className={cn(
         "transition-colors hover:text-foreground",
-        active === false && "text-muted-foreground",
+        active === false && "text-muted-foreground"
       )}
     >
       {label || children}
