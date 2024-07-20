@@ -1,0 +1,13 @@
+{
+  "extends": ["next/core-web-vitals", "prettier"],
+  "rules": {
+    "no-console": "error",
+    "no-unused-vars": "error",
+    "no-debugger": "error",
+    "react/jsx-no-target-blank": "off",
+    "max-lines": [
+      "error",
+      { "max": 200, "skipBlankLines": true, "skipComments": true }
+    ]
+  }
+}
