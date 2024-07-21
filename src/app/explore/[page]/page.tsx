@@ -9,10 +9,7 @@ export default async function ExplorePage({
   params: { page: string };
 }) {
   const page = params.page as string;
-  if (!page || Number.isNaN(parseInt(page))){
-    redirect("/explore/1");
-  }
-  if (parseInt(page) < 1) {
+  if (!page || Number.isNaN(parseInt(page)) || parseInt(page) < 1){
     redirect("/explore/1");
   }
   if (parseInt(page) > 250) {
