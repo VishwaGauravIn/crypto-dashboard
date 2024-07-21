@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, Package2 } from "lucide-react";
+import { Menu } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -42,11 +42,15 @@ export default function Header() {
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-30">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
         <Link
-          href="#"
+          href="/"
           className="flex items-center gap-2 text-lg font-semibold md:text-base"
         >
-          <Package2 className="h-6 w-6" />
-          <span className="sr-only">Acme Inc</span>
+          <img
+            src="/logo.png"
+            alt="Crypto Dashboard Logo"
+            className="w-6 h-6"
+          />
+          <span className="sr-only">Crypto Dashboard</span>
         </Link>
         {HeaderLinkOptions.map((option) => (
           <HeaderLink key={option.href} {...option} pathname={pathname} />
@@ -65,8 +69,12 @@ export default function Header() {
               href="#"
               className="flex items-center gap-2 text-lg font-semibold"
             >
-              <Package2 className="h-6 w-6" />
-              <span className="sr-only">Acme Inc</span>
+              <img
+                src="/logo.png"
+                alt="Crypto Dashboard Logo"
+                className="w-6 h-6"
+              />
+              <span className="sr-only">Crypto Dashboard</span>
             </Link>
             {HeaderLinkOptions.map((option) => (
               <HeaderLink key={option.href} {...option} pathname={pathname} />
@@ -165,19 +173,19 @@ const HeaderLinkOptions = [
     label: "Dashboard",
   },
   {
-    href: "#",
-    label: "Orders",
+    href: "/explore",
+    label: "Explore",
   },
   {
-    href: "#",
-    label: "Products",
+    href: "/coin/bitcoin",
+    label: "Bitcoin",
   },
   {
-    href: "#",
-    label: "Customers",
+    href: "/coin/ethereum",
+    label: "Ethereum",
   },
   {
-    href: "#",
-    label: "Analytics",
+    href: "https://github.com/VishwaGauravIn/crypto-dashboard",
+    label: "GitHub",
   },
 ];
