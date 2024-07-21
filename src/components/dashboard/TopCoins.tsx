@@ -18,9 +18,8 @@ import Link from "next/link";
 
 export default function TopCoins({ initialData }: { initialData: any }) {
   const [topCoinsData, setTopCoinsData] = useState(initialData);
-  const { topCoins, fetchTopCoins, loading, error } = useStore((state) => ({
+  const { topCoins, loading, error } = useStore((state) => ({
     topCoins: state.coins,
-    fetchTopCoins: state.fetchCoins,
     loading: state.loadingCoins,
     error: state.errorCoins,
   }));
@@ -29,11 +28,7 @@ export default function TopCoins({ initialData }: { initialData: any }) {
     if (!loading && topCoins?.length > 0) {
       setTopCoinsData(topCoins);
     }
-
-    const interval = setInterval(() => fetchTopCoins(), 5 * 60 * 1000);
-
-    return () => clearInterval(interval);
-  }, [loading, topCoins, fetchTopCoins]);
+  }, [loading, topCoins]);
 
   if (error) {
     toast.error("Error Fetching Top Coins");

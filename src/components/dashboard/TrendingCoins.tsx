@@ -17,24 +17,17 @@ import Link from "next/link";
 
 export default function TrendingCoins({ initialData }: { initialData: any }) {
   const [trendingCoinsData, setTrendingCoinsData] = useState(initialData);
-  const { trendingCoins, fetchTrendingCoins, loading, error } = useStore(
-    (state) => ({
-      trendingCoins: state.trendingCoins,
-      fetchTrendingCoins: state.fetchTrendingCoins,
-      loading: state.loadingTrendingCoins,
-      error: state.errorTrendingCoins,
-    })
-  );
+  const { trendingCoins, loading, error } = useStore((state) => ({
+    trendingCoins: state.trendingCoins,
+    loading: state.loadingTrendingCoins,
+    error: state.errorTrendingCoins,
+  }));
 
   useEffect(() => {
     if (!loading && trendingCoins?.length > 0) {
       setTrendingCoinsData(trendingCoins);
     }
-
-    const interval = setInterval(() => fetchTrendingCoins(), 5 * 60 * 1000);
-
-    return () => clearInterval(interval);
-  }, [loading, trendingCoins, fetchTrendingCoins]);
+  }, [loading, trendingCoins]);
 
   if (error) {
     toast.error("Error Fetching Trending Coins");
@@ -56,9 +49,9 @@ export default function TrendingCoins({ initialData }: { initialData: any }) {
           </TableHeader>
           <TableBody>
             {trendingCoinsData.slice(0, 10).map((coin: any) => (
-              
-                <TableRow key={coin.item.id}>
-                  <TableCell><Link href={`/coin/${coin.item.id}`}>
+              <TableRow key={coin.item.id}>
+                <TableCell>
+                  <Link href={`/coin/${coin.item.id}`}>
                     <div className="flex items-center gap-2">
                       <Image
                         src={coin.item.thumb}
@@ -69,32 +62,29 @@ export default function TrendingCoins({ initialData }: { initialData: any }) {
                       />
                       <span className="font-medium">{coin.item.symbol}</span>
                     </div>
-                    </Link>
-                  </TableCell>
-                  <TableCell>
-                    <Badge
-                      variant="outline"
-                      className={
-                        coin.item.data.price_change_percentage_24h.usd > 0
-                          ? "text-green-500"
-                          : "text-red-500"
-                      }
-                    >
-                      {coin.item.data.price_change_percentage_24h.usd.toFixed(
-                        2
-                      )}
-                      %
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <Image
-                      src={coin.item.data.sparkline}
-                      alt={coin.item.name}
-                      width={100}
-                      height={50}
-                    />
-                  </TableCell>
-                </TableRow>
+                  </Link>
+                </TableCell>
+                <TableCell>
+                  <Badge
+                    variant="outline"
+                    className={
+                      coin.item.data.price_change_percentage_24h.usd > 0
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }
+                  >
+                    {coin.item.data.price_change_percentage_24h.usd.toFixed(2)}%
+                  </Badge>
+                </TableCell>
+                <TableCell>
+                  <Image
+                    src={coin.item.data.sparkline}
+                    alt={coin.item.name}
+                    width={100}
+                    height={50}
+                  />
+                </TableCell>
+              </TableRow>
             ))}
           </TableBody>
         </Table>

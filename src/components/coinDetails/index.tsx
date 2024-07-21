@@ -29,12 +29,10 @@ export default function CoinDetails({
 
   const {
     coinDetails,
-    fetchCoinDetails,
     loadingCoinDetails,
     errorCoinDetails,
   } = useStore((state) => ({
     coinDetails: state.coinDetails,
-    fetchCoinDetails: state.fetchCoinDetails,
     loadingCoinDetails: state.loadingCoinDetails,
     errorCoinDetails: state.errorCoinDetails,
   }));
@@ -43,11 +41,7 @@ export default function CoinDetails({
     if (!loadingCoinDetails && coinDetails) {
       setCoinDetailsData(coinDetails);
     }
-
-    const interval = setInterval(() => fetchCoinDetails(id), 5 * 60 * 1000);
-
-    return () => clearInterval(interval);
-  }, [loadingCoinDetails, coinDetails, fetchCoinDetails, id]);
+  }, [loadingCoinDetails, coinDetails, id]);
 
   if (errorCoinDetails) {
     toast.error("Error Fetching Coin Details");
@@ -77,7 +71,7 @@ export default function CoinDetails({
             </p>
             <p>
               <strong>Max Supply:</strong>{" "}
-              {coinDetailsData.market_data.max_supply}
+              {coinDetailsData.market_data.max_supply || "No Limits"}
             </p>
             <p>
               <strong>Circulating Supply:</strong>{" "}

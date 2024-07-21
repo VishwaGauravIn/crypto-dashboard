@@ -19,6 +19,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import useStore from "@/store/useStore";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { useAutoUpdateCoin } from "@/store/useAutoUpdate";
 
 export function CoinChart({
   id,
@@ -31,11 +32,10 @@ export function CoinChart({
 }) {
   const [days, setDays] = useState(1);
   const [coinChartData, setCoinChartData] = useState(initialData);
-  const { coinChart, loading, error, fetchCoinChart } = useStore((state) => ({
+  const { coinChart, loading, error } = useStore((state) => ({
     coinChart: state.coinChart,
     loading: state.loadingCoinChart,
     error: state.errorCoinChart,
-    fetchCoinChart: state.fetchCoinChart,
   }));
 
   const chartData = useMemo(
@@ -72,23 +72,13 @@ export function CoinChart({
     if (!loading && coinChart?.prices?.length > 0) {
       setCoinChartData(coinChart);
     }
+  }, [loading, coinChart, id, days]);
 
-    const interval = setInterval(
-      async () => await fetchCoinChart(id, days),
-      5 * 60 * 1000
-    );
-
-    return () => clearInterval(interval);
-  }, [loading, coinChart, fetchCoinChart, id, days]);
+  useAutoUpdateCoin(id, days);
 
   if (error) {
     toast.error("Error Fetching Graph");
   }
-
-  useEffect(() => {
-    fetchCoinChart(id, days);
-  }, [days, fetchCoinChart, id]);
-
   const handleDaysChange = useCallback((newDays: number): void => {
     setDays(newDays);
   }, []);
