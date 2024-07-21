@@ -144,10 +144,10 @@ export function CoinChart({
           </LineChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="text-sm justify-center">
+      <CardFooter className="text-xs sm:text-sm justify-center gap-2 flex-wrap">
         <button
           onClick={() => handleDaysChange(1)}
-          className={cn("p-2 border flex gap-1 rounded-l-md", {
+          className={cn("p-2 border flex gap-1 rounded-md", {
             "bg-[hsl(var(--chart-1))] text-white": days === 1,
           })}
         >
@@ -161,7 +161,7 @@ export function CoinChart({
         </button>
         <button
           onClick={() => handleDaysChange(7)}
-          className={cn("p-2 border flex gap-1", {
+          className={cn("p-2 border flex gap-1 rounded-md", {
             "bg-[hsl(var(--chart-1))] text-white": days === 7,
           })}
         >
@@ -175,7 +175,7 @@ export function CoinChart({
         </button>
         <button
           onClick={() => handleDaysChange(30)}
-          className={cn("p-2 border flex gap-1", {
+          className={cn("p-2 border flex gap-1 rounded-md", {
             "bg-[hsl(var(--chart-1))] text-white": days === 30,
           })}
         >
@@ -189,7 +189,7 @@ export function CoinChart({
         </button>
         <button
           onClick={() => handleDaysChange(365)}
-          className={cn("p-2 border flex gap-1 rounded-r-md", {
+          className={cn("p-2 border flex gap-1 rounded-md", {
             "bg-[hsl(var(--chart-1))] text-white": days === 365,
           })}
         >
