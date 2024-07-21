@@ -8,7 +8,7 @@ import {
   TableBody,
   TableCell,
 } from "@/components/ui/table";
-import { TrendingUpIcon } from "lucide-react";
+import { BadgePlusIcon, TrendingUpIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import useStore from "@/store/useStore";
@@ -88,6 +88,9 @@ export default function TrendingCoins({ initialData }: { initialData: any }) {
             ))}
           </TableBody>
         </Table>
+        <Badge variant="outline" className="py-2 px-4 self-center">
+          <BadgePlusIcon className="w-4 h-4 mr-2" /> Explore More
+        </Badge>
       </CardContent>
     </Card>
   );
