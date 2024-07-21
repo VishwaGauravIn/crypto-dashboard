@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import SessionProvider from "@/components/session-provider";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "sonner";
+import Container from "@/container/Container";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,7 +30,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <Container>{children}</Container>
             <Toaster position="top-center" richColors />
           </ThemeProvider>
         </SessionProvider>
