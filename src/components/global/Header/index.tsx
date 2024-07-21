@@ -9,7 +9,7 @@ import ToggleTheme from "./ToggleTheme";
 import Account from "./Account";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Command,
   CommandEmpty,
@@ -18,12 +18,26 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { demoCoins, demoTrendingCoins } from "@/store/demoData";
+import useStore from "@/store/useStore";
+import { toast } from "sonner";
 
 export default function Header() {
   const pathname = usePathname();
-  const searchData = demoCoins;
-  const trendingCoins = demoTrendingCoins;
+  const { searchData, trendingCoins, loading, error } = useStore((state) => ({
+    searchData: state.coins,
+    trendingCoins: state.trendingCoins,
+    loading: state.loadingCoins && state.loadingTrendingCoins,
+    error: state.errorCoins || state.errorTrendingCoins,
+  }));
+
+  if (error) {
+    toast.error("Error Loading Search Data");
+  }
+
+  useEffect(() => {
+    useStore.getState().fetchCoins();
+    useStore.getState().fetchTrendingCoins();
+  }, []);
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-30">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
@@ -65,24 +79,39 @@ export default function Header() {
           <div className="relative w-96">
             <Command className="rounded-lg border shadow-sm group relative">
               <CommandInput
-                placeholder="Search coins"
+                placeholder={loading ? "Loading Data..." : "Search coins"}
                 className="z-20 relative"
+                disabled={loading}
               />
-              <CommandList className="h-0 group-focus-within:h-48 max-h-48 transition-all ease-in-out absolute top-8 group-focus-within:pt-4 shadow-md -z-10 rounded-b bg-white w-full">
+              <CommandList className="h-0 group-focus-within:h-48 max-h-48 transition-all ease-in-out absolute top-8 group-focus-within:pt-4 shadow-md -z-10 rounded-b bg-white dark:bg-black w-full">
                 <CommandEmpty>No results found.</CommandEmpty>
                 <CommandGroup heading="Top Trending ️‍🔥">
-                 {/* Top 5 trending coins */}
+                  {/* Top 5 trending coins */}
                   {trendingCoins.slice(0, 5).map((coin) => (
-                    <CommandItem key={coin.item.id}>
-                      <span>{coin.item.name} <span className="text-muted-foreground lowercase">({coin.item.symbol})</span></span>
-                    </CommandItem>
+                    <Link key={coin.item.id} href={`/coin/${coin.item.id}`}>
+                      <CommandItem>
+                        <span className="dark:text-white">
+                          {coin.item.name}{" "}
+                          <span className="text-muted-foreground lowercase">
+                            ({coin.item.symbol})
+                          </span>
+                        </span>
+                      </CommandItem>
+                    </Link>
                   ))}
                 </CommandGroup>
                 <CommandGroup heading="All Coins">
                   {searchData.map((coin) => (
-                    <CommandItem key={coin.id}>
-                      <span>{coin.name} <span className="text-muted-foreground">({coin.symbol})</span></span>
-                    </CommandItem>
+                    <Link key={coin.id} href={`/coin/${coin.id}`}>
+                      <CommandItem>
+                        <span>
+                          {coin.name}{" "}
+                          <span className="text-muted-foreground">
+                            ({coin.symbol})
+                          </span>
+                        </span>
+                      </CommandItem>
+                    </Link>
                   ))}
                 </CommandGroup>
               </CommandList>
