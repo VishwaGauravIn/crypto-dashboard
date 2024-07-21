@@ -113,7 +113,7 @@ export default function Explore({
                       <PaginationPrevious href={`/explore/${page - 1}`} />
                     )}
                   </PaginationItem>
-                  <Badge>{page}</Badge>
+                  <Badge variant="outline">{page}</Badge>
                   <PaginationItem>
                     {page < 250 && (
                       <PaginationNext href={`/explore/${page + 1}`} />

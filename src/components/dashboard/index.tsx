@@ -9,14 +9,14 @@ import { useAutoUpdateGlobal } from "@/store/useAutoUpdate";
 export default function Dashboard({
   initialData,
 }: {
-  initialData: { topCoinsData: any; trendingCoinsData: any };
+  initialData: { topCoinsData: any; trendingCoinsData: any; globalData: any };
 }) {
   useAutoUpdateGlobal();
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <main className="flex flex-1 gap-8 p-4 md:p-8 justify-between">
         <div className="w-8/12">
-          <MarketOutlook />
+          <MarketOutlook initialData={initialData.globalData} />
           <News />
         </div>
         <div className="w-4/12 space-y-4">
