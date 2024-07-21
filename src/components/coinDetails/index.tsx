@@ -27,15 +27,13 @@ export default function CoinDetails({
     intialData.coinDetails
   );
 
-  const {
-    coinDetails,
-    loadingCoinDetails,
-    errorCoinDetails,
-  } = useStore((state) => ({
-    coinDetails: state.coinDetails,
-    loadingCoinDetails: state.loadingCoinDetails,
-    errorCoinDetails: state.errorCoinDetails,
-  }));
+  const { coinDetails, loadingCoinDetails, errorCoinDetails } = useStore(
+    (state) => ({
+      coinDetails: state.coinDetails,
+      loadingCoinDetails: state.loadingCoinDetails,
+      errorCoinDetails: state.errorCoinDetails,
+    })
+  );
 
   useEffect(() => {
     if (!loadingCoinDetails && coinDetails) {
@@ -49,7 +47,7 @@ export default function CoinDetails({
 
   return (
     <div className="p-6 flex flex-col lg:flex-row gap-4">
-      <div className="w-6/12 lg:sticky top-0">
+      <div className="w-full max-w-3xl lg:w-6/12 lg:sticky top-0 self-center lg:self-auto">
         <CoinChart
           id={id}
           coinData={coinDetailsData}
