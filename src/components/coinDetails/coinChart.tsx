@@ -23,14 +23,14 @@ import { toast } from "sonner";
 export function CoinChart({
   id,
   coinData,
-  intialData,
+  initialData,
 }: {
   id: string;
   coinData: any;
-  intialData: any;
+  initialData: any;
 }) {
   const [days, setDays] = useState(1);
-  const [coinChartData, setCoinChartData] = useState(intialData);
+  const [coinChartData, setCoinChartData] = useState(initialData);
   const { coinChart, loading, error, fetchCoinChart } = useStore((state) => ({
     coinChart: state.coinChart,
     loading: state.loadingCoinChart,
@@ -62,15 +62,15 @@ export function CoinChart({
   );
 
   const prices = useMemo(
-    () => chartData?.map((data:any) => data.price) || [],
+    () => chartData?.map((data: any) => data.price) || [],
     [chartData]
   );
   const minPrice = useMemo(() => Math.min(...prices), [prices]);
   const maxPrice = useMemo(() => Math.max(...prices), [prices]);
 
   useEffect(() => {
-    if (!loading && coinChart?.prices) {
-      setCoinChartData(coinChart.prices);
+    if (!loading && coinChart?.prices?.length > 0) {
+      setCoinChartData(coinChart);
     }
 
     const interval = setInterval(
@@ -84,6 +84,10 @@ export function CoinChart({
   if (error) {
     toast.error("Error Fetching Graph");
   }
+
+  useEffect(() => {
+    fetchCoinChart(id, days);
+  }, [days, fetchCoinChart, id]);
 
   const handleDaysChange = useCallback((newDays: number): void => {
     setDays(newDays);
@@ -167,7 +171,7 @@ export function CoinChart({
         </button>
         <button
           onClick={() => handleDaysChange(7)}
-          className={cn("p-2 border  gap-1", {
+          className={cn("p-2 border flex gap-1", {
             "bg-[hsl(var(--chart-1))] text-white": days === 7,
           })}
         >
