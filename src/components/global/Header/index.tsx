@@ -72,7 +72,7 @@ export default function Header({ searchData }: { searchData: any }) {
       </Sheet>
       <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
         <form className="ml-auto flex-1 sm:flex-initial">
-          <div className="relative w-96">
+          <div className="relative lg:w-96">
             <Command className="rounded-lg border shadow-sm group relative">
               <CommandInput
                 placeholder="Search coins"

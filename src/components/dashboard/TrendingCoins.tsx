@@ -38,7 +38,7 @@ export default function TrendingCoins({ initialData }: { initialData: any }) {
         <CardTitle className="text-sm font-medium">Trending Coins</CardTitle>
         <TrendingUpIcon className="w-4 h-4 text-muted-foreground" />
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex flex-col">
         <Table>
           <TableHeader>
             <TableRow>

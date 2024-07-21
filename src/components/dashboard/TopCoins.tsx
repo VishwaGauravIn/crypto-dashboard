@@ -39,7 +39,7 @@ export default function TopCoins({ initialData }: { initialData: any }) {
         <CardTitle className="text-sm font-medium">Top Coins</CardTitle>
         <CrownIcon className="w-4 h-4 text-muted-foreground" />
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex flex-col">
         <Table>
           <TableHeader>
             <TableRow>
