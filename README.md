@@ -44,6 +44,8 @@ We've got everything that you need! A Crypto Dashboard to check all details abou
 
 ### 🗝️ Authentication support
 
+### 📦 PWA Support for all devices
+
 .... and more
 
 ## Our Social Links
