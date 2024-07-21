@@ -117,7 +117,7 @@ export default function CoinDetails({
               <LinkIcon /> Links
             </CardTitle>
           </CardHeader>
-          <CardContent className="gap-2 flex">
+          <CardContent className="gap-2 flex flex-wrap">
             {coinDetailsData.links.whitepaper && (
               <a
                 href={coinDetailsData.links.whitepaper}
