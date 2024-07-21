@@ -1,6 +1,7 @@
 "use server";
 
 import axios from "axios";
+import { redirect } from "next/navigation";
 
 const API_KEY = process.env.COINGECKO_API_KEY;
 
@@ -57,8 +58,12 @@ export async function fetchCoinDetails(id: string) {
       }
     );
     return response.data;
-  } catch (error) {
-    throw new Error((error as Error).message);
+  } catch (error: any) {
+    if (error?.response.status == 404) {
+      redirect("/404");
+    } else {
+      throw new Error((error as Error).message);
+    }
   }
 }
 
