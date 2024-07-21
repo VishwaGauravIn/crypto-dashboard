@@ -6,7 +6,9 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import Link from "next/link";
+// import Link from "next/link";
+
+// ? Use a good News API to fetch realtime-news related to cryptos
 
 export default function News() {
   return (
@@ -28,9 +30,9 @@ export default function News() {
             <CardFooter>
               <div className="flex items-center justify-between">
                 <div className="text-xs text-muted-foreground">2 hours ago</div>
-                <Link href="#" className="text-primary" prefetch={false}>
+                {/* <Link href="#" className="text-primary" prefetch={false}>
                   Read more
-                </Link>
+                </Link> */}
               </div>
             </CardFooter>
           </Card>
@@ -42,17 +44,17 @@ export default function News() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
-                The highly anticipated Ethereum upgrade, known as the Merge,
-                is expected to significantly improve transaction speeds and
-                reduce energy consumption.
+                The highly anticipated Ethereum upgrade, known as the Merge, is
+                expected to significantly improve transaction speeds and reduce
+                energy consumption.
               </p>
             </CardContent>
             <CardFooter>
               <div className="flex items-center justify-between">
                 <div className="text-xs text-muted-foreground">1 day ago</div>
-                <Link href="#" className="text-primary" prefetch={false}>
+                {/* <Link href="#" className="text-primary" prefetch={false}>
                   Read more
-                </Link>
+                </Link> */}
               </div>
             </CardFooter>
           </Card>
@@ -72,9 +74,9 @@ export default function News() {
             <CardFooter>
               <div className="flex items-center justify-between">
                 <div className="text-xs text-muted-foreground">3 days ago</div>
-                <Link href="#" className="text-primary" prefetch={false}>
+                {/* <Link href="#" className="text-primary" prefetch={false}>
                   Read more
-                </Link>
+                </Link> */}
               </div>
             </CardFooter>
           </Card>
@@ -94,9 +96,9 @@ export default function News() {
             <CardFooter>
               <div className="flex items-center justify-between">
                 <div className="text-xs text-muted-foreground">1 week ago</div>
-                <Link href="#" className="text-primary" prefetch={false}>
+                {/* <Link href="#" className="text-primary" prefetch={false}>
                   Read more
-                </Link>
+                </Link> */}
               </div>
             </CardFooter>
           </Card>
