@@ -14,6 +14,7 @@ import Image from "next/image";
 import numPrettier from "@/lib/numPrettier";
 import useStore from "@/store/useStore";
 import { toast } from "sonner";
+import Link from "next/link";
 
 export default function TopCoins({ initialData }: { initialData: any }) {
   const [topCoinsData, setTopCoinsData] = useState(initialData);
@@ -56,18 +57,20 @@ export default function TopCoins({ initialData }: { initialData: any }) {
             {topCoinsData.map((coin: any) => (
               <TableRow key={coin.id}>
                 <TableCell>
-                  <div className="flex items-center gap-2">
-                    <Image
-                      src={
-                        coin.image.replace("/large/", "/small/") || coin.image
-                      }
-                      alt={coin.name}
-                      width={24}
-                      height={24}
-                      className="rounded-full"
-                    />
-                    <span className="font-medium">{coin.symbol}</span>
-                  </div>
+                  <Link href={`/coin/${coin.id}`}>
+                    <div className="flex items-center gap-2">
+                      <Image
+                        src={
+                          coin.image.replace("/large/", "/small/") || coin.image
+                        }
+                        alt={coin.name}
+                        width={24}
+                        height={24}
+                        className="rounded-full"
+                      />
+                      <span className="font-medium">{coin.symbol}</span>
+                    </div>
+                  </Link>
                 </TableCell>
                 <TableCell>{numPrettier(coin.total_volume, 2)}</TableCell>
                 <TableCell>
