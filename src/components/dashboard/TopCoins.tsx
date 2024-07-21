@@ -54,7 +54,7 @@ export default function TopCoins({ initialData }: { initialData: any }) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {topCoinsData.map((coin: any) => (
+            {topCoinsData.slice(0, 10).map((coin: any) => (
               <TableRow key={coin.id}>
                 <TableCell>
                   <Link href={`/coin/${coin.id}`}>
