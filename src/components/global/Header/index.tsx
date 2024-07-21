@@ -9,7 +9,7 @@ import ToggleTheme from "./ToggleTheme";
 import Account from "./Account";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Command,
   CommandEmpty,
@@ -18,27 +18,10 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import useStore from "@/store/useStore";
-import { toast } from "sonner";
 import Image from "next/image";
 
-export default function Header() {
+export default function Header({ searchData }: { searchData: any }) {
   const pathname = usePathname();
-  const { searchData, trendingCoins, loading, error } = useStore((state) => ({
-    searchData: state.coins,
-    trendingCoins: state.trendingCoins,
-    loading: state.loadingCoins && state.loadingTrendingCoins,
-    error: state.errorCoins || state.errorTrendingCoins,
-  }));
-
-  if (error) {
-    toast.error("Error Loading Search Data");
-  }
-
-  useEffect(() => {
-    useStore.getState().fetchCoins();
-    useStore.getState().fetchTrendingCoins();
-  }, []);
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-30">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
@@ -92,14 +75,13 @@ export default function Header() {
           <div className="relative w-96">
             <Command className="rounded-lg border shadow-sm group relative">
               <CommandInput
-                placeholder={loading ? "Loading Data..." : "Search coins"}
+                placeholder="Search coins"
                 className="z-20 relative"
-                disabled={loading}
               />
               <CommandList className="h-0 group-focus-within:h-48 max-h-48 transition-all ease-in-out absolute top-8 group-focus-within:pt-4 shadow-md -z-10 rounded-b bg-white dark:bg-black w-full">
                 <CommandEmpty>No results found.</CommandEmpty>
-                <CommandGroup heading="Top Trending ️‍🔥">
-                  {/* Top 5 trending coins */}
+                {/* ? Disabled due to rate limit, can be enabled whenever required */}
+                {/* <CommandGroup heading="Top Trending ️‍🔥">
                   {trendingCoins.slice(0, 5).map((coin) => (
                     <Link key={coin.item.id} href={`/coin/${coin.item.id}`}>
                       <CommandItem>
@@ -112,9 +94,9 @@ export default function Header() {
                       </CommandItem>
                     </Link>
                   ))}
-                </CommandGroup>
+                </CommandGroup> */}
                 <CommandGroup heading="All Coins">
-                  {searchData.map((coin) => (
+                  {searchData.map((coin: any) => (
                     <Link key={coin.id} href={`/coin/${coin.id}`}>
                       <CommandItem>
                         <span>

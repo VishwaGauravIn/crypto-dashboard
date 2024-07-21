@@ -103,3 +103,25 @@ export async function fetchCoinChart(id: string, days: number) {
     throw new Error((error as Error).message);
   }
 }
+
+// ? We can't use search API due to API rate limits and fetching all coins is not feasible for demoing purposes, but we can fetch it once and cache it as it would save tons of search API hits
+// export async function fetchAllCoins() {
+//   try {
+//     const response = await axios.get(
+//       "https://api.coingecko.com/api/v3/coins/list",
+//       {
+//         headers: {
+//           Authorization: `Bearer ${API_KEY}`,
+//         },
+//       }
+//     );
+//     return response.data;
+//   } catch (error) {
+//     throw new Error((error as Error).message);
+//   }
+// }
+
+// ? For Now using this as a workaround, fetching top 100 coins
+export async function fetchAllCoins() {
+  return fetchCoins(1, 100);
+}
