@@ -118,7 +118,7 @@ export function CoinChart({
             <YAxis
               dataKey="price"
               domain={[minPrice, maxPrice]}
-              tickFormatter={(value) => `$${value.toFixed(2)}`}
+              tickFormatter={(value) => `$${value.toFixed(7)}`}
               hide
             />
             <ChartTooltip

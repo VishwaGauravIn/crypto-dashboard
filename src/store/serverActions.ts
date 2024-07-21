@@ -20,7 +20,11 @@ export async function fetchGlobalMarketCap() {
   }
 }
 
-export async function fetchCoins(page = 1) {
+export async function fetchCoins(
+  page = 1,
+  per_page = 100,
+  order = "market_cap_desc"
+) {
   try {
     const response = await axios.get(
       "https://api.coingecko.com/api/v3/coins/markets?price_change_percentage=24h",
@@ -30,8 +34,8 @@ export async function fetchCoins(page = 1) {
         },
         params: {
           vs_currency: "usd",
-          order: "market_cap_desc",
-          per_page: 100,
+          order: order,
+          per_page: per_page,
           page,
         },
       }
@@ -85,7 +89,6 @@ export async function fetchCoinChart(id: string, days: number) {
         params: {
           vs_currency: "usd",
           days: days,
-          precision: 2,
           interval: days > 29 ? "daily" : "",
         },
       }
