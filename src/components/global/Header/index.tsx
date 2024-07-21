@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/command";
 import useStore from "@/store/useStore";
 import { toast } from "sonner";
+import Image from "next/image";
 
 export default function Header() {
   const pathname = usePathname();
@@ -45,10 +46,12 @@ export default function Header() {
           href="/"
           className="flex items-center gap-2 text-lg font-semibold md:text-base"
         >
-          <img
+          <Image
             src="/logo.png"
+            width={24}
+            height={24}
             alt="Crypto Dashboard Logo"
-            className="w-6 h-6"
+            className="max-w-max"
           />
           <span className="sr-only">Crypto Dashboard</span>
         </Link>
@@ -69,10 +72,12 @@ export default function Header() {
               href="#"
               className="flex items-center gap-2 text-lg font-semibold"
             >
-              <img
+              <Image
                 src="/logo.png"
+                width={24}
+                height={24}
                 alt="Crypto Dashboard Logo"
-                className="w-6 h-6"
+                className="max-w-max"
               />
               <span className="sr-only">Crypto Dashboard</span>
             </Link>
